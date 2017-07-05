@@ -12,8 +12,16 @@ import Visitors.MHSVisitor
 class ExpressaoLet(val id : String , val expNomeada: Expressao , val corpo: Expressao) extends Expressao {
 
   override def avaliar() : Valor = {
+
+    AmbienteExpressao.novoEscopo()
     AmbienteExpressao.associar(id, expNomeada)
-    corpo.avaliar()
+
+    val resultado = corpo.avaliar()
+
+    AmbienteExpressao.mudancaDeEscopo()
+
+    resultado
+
   }
 
   override def verificarTipo() : Tipo = if(expNomeada.verificarTipo().equals(TErro)) TErro else  corpo.verificarTipo()

@@ -9,11 +9,17 @@ class Aplicacao (val nome: String, val args: Expressao*) extends Expressao{
 
     val funcao = AmbienteDecFuncao.pesquisar(nome)
 
+    AmbienteExpressao.novoEscopo()
+
     for(i <- funcao.args.indices){
       AmbienteExpressao.associar(funcao.args(i)._1, args(i))
     }
 
-    funcao.corpo.avaliar()
+    val resultado = funcao.corpo._1.avaliar()
+
+    AmbienteExpressao.mudancaDeEscopo()
+
+    resultado
 
   }
 
@@ -26,9 +32,9 @@ class Aplicacao (val nome: String, val args: Expressao*) extends Expressao{
       AmbienteExpressao.associar(funcao.args(i)._1, this.args(i))
     }
 
-    val tipoRetorno = funcao.corpo.verificarTipo()
+    val tipoRetorno = funcao.corpo._1.verificarTipo()
 
-    if(tipoRetorno == TErro || this.args.size != funcao.args.size)
+    if(tipoRetorno == TErro || tipoRetorno != funcao.corpo._2 || this.args.size != funcao.args.size)
       TErro
 
     else {
