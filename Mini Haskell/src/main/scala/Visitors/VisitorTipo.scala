@@ -45,7 +45,7 @@ class VisitorTipo extends MHSVisitor[Tipo]{
     }
   }
 
-  override def visitar(e: ExpressaoLet): Tipo =
+  override def visitar(e: ExpressaoLet): Tipo = TErro
 
   override def visitar(e: Referencia): Tipo = TErro
 }
