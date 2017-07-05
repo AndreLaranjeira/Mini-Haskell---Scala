@@ -41,6 +41,7 @@ class Aplicacao (val nome: String, val args: Expressao*) extends Expressao{
 
       for(i <- funcao.args.indices) {
 
+
         if(funcao.args(i)._2 == this.args(i).verificarTipo() && funcao.args(i)._2 != TErro)
           tiposArgumentos = funcao.args(i)._2 :: tiposArgumentos
 
