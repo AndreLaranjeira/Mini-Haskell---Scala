@@ -2,24 +2,29 @@ package Tipos
 
 import Memoria.{AmbienteDecFuncao, AmbienteExpressao}
 import Visitors.MHSVisitor
+import Visitors.VisitorTipo
 
 class Aplicacao (val nome: String, val args: Expressao*) extends Expressao{
 
   override def avaliar(): Valor = {
-
+    val visitor = new VisitorTipo
     val funcao = AmbienteDecFuncao.pesquisar(nome)
 
     AmbienteExpressao.novoEscopo()
 
-    for(i <- funcao.args.indices){
-      AmbienteExpressao.associar(funcao.args(i)._1, args(i))
+    if(visitor.visitar(this) != TErro) {
+      for (i <- funcao.args.indices) {
+        AmbienteExpressao.associar(funcao.args(i)._1, args(i))
+      }
+
+      val resultado = funcao.corpo._1.avaliar()
+
+      AmbienteExpressao.mudancaDeEscopo()
+
+      resultado
     }
-
-    val resultado = funcao.corpo._1.avaliar()
-
-    AmbienteExpressao.mudancaDeEscopo()
-
-    resultado
+    else
+      ValorErro(null)
 
   }
 

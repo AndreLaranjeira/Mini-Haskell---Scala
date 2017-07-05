@@ -1,6 +1,6 @@
 package Tipos
 
-import Visitors.MHSVisitor
+import Visitors.{MHSVisitor, VisitorTipo}
 
 /**
   * Epressao If-Then-Else, permitindo algo como:
@@ -10,10 +10,15 @@ import Visitors.MHSVisitor
 
 class ExpressaoITE(val condicao: Expressao, val clausulaThen: Expressao, val clausulaElse: Expressao) extends Expressao{
 
-  override def avaliar() : Valor =
-    if (condicao.avaliar().asInstanceOf[ValorBooleano].valor) clausulaThen.avaliar()
-    else clausulaElse.avaliar()
-
+  override def avaliar() : Valor = {
+    val visitor = new VisitorTipo()
+    if (visitor.visitar(this) != TErro){
+      if (condicao.avaliar().asInstanceOf[ValorBooleano].valor) clausulaThen.avaliar()
+      else clausulaElse.avaliar()
+    }
+    else
+      ValorErro(null)
+  }
   /*override def verificarTipo() : Tipo =
 
     if(condicao.verificarTipo() == TBooleano && clausulaThen.verificarTipo() == clausulaElse.verificarTipo())
