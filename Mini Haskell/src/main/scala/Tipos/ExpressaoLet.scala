@@ -21,7 +21,7 @@ class ExpressaoLet(val id : String , val expNomeada: Expressao , val corpo: Expr
       resultado
     }
     else
-      ValorErro
+      ValorErro(null)
   }
 
   //override def verificarTipo() : Tipo = if(expNomeada.verificarTipo().equals(TErro)) TErro else  corpo.verificarTipo()

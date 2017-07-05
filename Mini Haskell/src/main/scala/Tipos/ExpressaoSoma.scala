@@ -4,8 +4,6 @@ import Visitors.{MHSVisitor, VisitorTipo}
 
 class ExpressaoSoma(lhs : Expressao, rhs : Expressao) extends ExpressaoBinaria(lhs, rhs) {
 
-  /* essa implementacao eh fragil, pois nao verifica os tipos */
-
   override def avaliar() : Valor = {
     val visitor = new VisitorTipo
     if(visitor.visitar(this) != TErro) {
@@ -14,7 +12,7 @@ class ExpressaoSoma(lhs : Expressao, rhs : Expressao) extends ExpressaoBinaria(l
       ValorInteiro(v1.valor + v2.valor)
     }
     else
-      ValorErro
+      ValorErro(null)
   }
 
   /*override def verificarTipo() : Tipo = {

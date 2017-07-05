@@ -10,7 +10,7 @@ class Referencia(val id: String) extends Expressao {
     if(visitor.visitar(this) != TErro)
       AmbienteExpressao.pesquisar(id).avaliar()
     else
-      ValorErro
+      ValorErro(null)
   }
 
   /*override def verificarTipo() : Tipo = {

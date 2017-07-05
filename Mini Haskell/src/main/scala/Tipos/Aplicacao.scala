@@ -24,7 +24,7 @@ class Aplicacao (val nome: String, val args: Expressao*) extends Expressao{
       resultado
     }
     else
-      ValorErro
+      ValorErro(null)
 
   }
 

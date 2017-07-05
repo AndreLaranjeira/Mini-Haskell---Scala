@@ -17,7 +17,7 @@ class ExpressaoITE(val condicao: Expressao, val clausulaThen: Expressao, val cla
       else clausulaElse.avaliar()
     }
     else
-      ValorErro
+      ValorErro(null)
   }
   /*override def verificarTipo() : Tipo =
 
