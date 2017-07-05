@@ -4,6 +4,28 @@ import Memoria.{Ambiente, AmbienteDecFuncao, AmbienteExpressao}
 import Tipos._
 
 class VisitorTipo extends MHSVisitor[Tipo]{
+
+  override def visitar(e: ExpressaoAnd): Tipo = {
+    if(e.lhs.aceitar(this) == TBooleano && e.rhs.aceitar(this) == TBooleano)
+      TBooleano
+    else
+      TErro
+  }
+
+  override def visitar(e: ExpressaoNot): Tipo = {
+    if(e.exp.aceitar(this) == TBooleano)
+      TBooleano
+    else
+      TErro
+  }
+
+  override def visitar(e: ExpressaoOr): Tipo = {
+    if(e.lhs.aceitar(this) == TBooleano && e.rhs.aceitar(this) == TBooleano)
+      TBooleano
+    else
+      TErro
+  }
+
   override def visitar(e: ValorInteiro): Tipo = TInteiro
 
   override def visitar(e: ValorBooleano): Tipo = TBooleano
