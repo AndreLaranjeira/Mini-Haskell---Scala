@@ -10,14 +10,34 @@ import scala.collection.mutable
   */
 
 class Ambiente[T] {
-  private val contexto : mutable.HashMap[String, T] = new mutable.HashMap()
+
+  private var contexto : mutable.HashMap[String, T] = new mutable.HashMap()
+  private var escopos: List[mutable.HashMap[String, T]] = List()
 
   /**
     * Associa um id a uma expressao
     */
 
-  def associar(id : String, exp : T) {
+  def associar(id : String, exp : T): Unit = {
     contexto += id -> exp
+  }
+
+  def mudancaDeEscopo(): Unit = {
+    contexto = escopos.head
+    escopos = escopos.drop(1)
+  }
+
+  /**
+    * Cria um novo escopo para variáveis.
+    */
+
+  def novoEscopo(): Unit = {
+
+    escopos = new mutable.HashMap[String, T]() :: escopos
+
+    for(pair <- contexto)
+      escopos.head += pair
+
   }
 
   /**
