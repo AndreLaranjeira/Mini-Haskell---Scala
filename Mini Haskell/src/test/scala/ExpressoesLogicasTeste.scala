@@ -37,4 +37,37 @@ class ExpressoesLogicasTeste extends FlatSpec with Matchers {
 
   }
 
+  "5 && true" should " result in ValorErro" in {
+
+    val logic = new ExpressaoAnd(ValorInteiro(5), ValorBooleano(true))
+
+    logic.avaliar() should be (ValorErro(null))
+
+  }
+
+  "5 || true" should " result in ValorErro" in {
+
+    val logic = new ExpressaoOr(ValorInteiro(5), ValorBooleano(true))
+
+    logic.avaliar() should be (ValorErro(null))
+
+  }
+
+  "!5" should " result in ValorErro" in {
+
+    val logic = new ExpressaoNot(ValorInteiro(5))
+
+    logic.avaliar() should be (ValorErro(null))
+
+  }
+
+  "if(true) 5 else 5 && true" should " result in ValorErro" in {
+
+    val sublogic = new ExpressaoITE(ValorBooleano(true), ValorInteiro(5), ValorInteiro(5))
+    val logic = new ExpressaoAnd(ValorInteiro(5), ValorBooleano(true))
+
+    logic.avaliar() should be (ValorErro(null))
+
+  }
+
 }

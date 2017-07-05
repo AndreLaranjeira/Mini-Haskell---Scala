@@ -1,14 +1,23 @@
 package Tipos
 
-import Visitors.MHSVisitor
+import Visitors.{MHSVisitor, VisitorTipo}
 
 class ExpressaoNot(val exp: Expressao) extends Expressao {
 
   override def avaliar() : Valor = {
 
-    val v1 = exp.avaliar().asInstanceOf[ValorBooleano]
+    val visitor = new VisitorTipo
 
-    ValorBooleano(!v1.valor)
+    if(visitor.visitar(this) == TErro)
+      ValorErro(null)
+
+    else {
+
+      val v1 = exp.avaliar().asInstanceOf[ValorBooleano]
+
+      ValorBooleano(!v1.valor)
+
+    }
 
   }
 

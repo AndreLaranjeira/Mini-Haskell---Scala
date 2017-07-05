@@ -35,6 +35,19 @@ class VisitorTipo extends MHSVisitor[Tipo]{
 
   }
 
+  override def visitar(e: ExpressaoAnd): Tipo = {
+
+    val lhs = e.lhs.aceitar(this)
+    val rhs = e.rhs.aceitar(this)
+
+    if(lhs == TBooleano && rhs == TBooleano)
+      TBooleano
+
+    else
+      TErro
+
+  }
+
   override def visitar(e: ExpressaoITE): Tipo = {
 
     val tipoCondicao = e.condicao.aceitar(this)
@@ -68,6 +81,31 @@ class VisitorTipo extends MHSVisitor[Tipo]{
       AmbienteExpressao.mudancaDeEscopo()
       TErro
     }
+
+  }
+
+  override def visitar(e: ExpressaoNot): Tipo = {
+
+    val exp = e.exp.aceitar(this)
+
+    if(exp == TBooleano)
+      TBooleano
+
+    else
+      TErro
+
+  }
+
+  override def visitar(e: ExpressaoOr): Tipo = {
+
+    val lhs = e.lhs.aceitar(this)
+    val rhs = e.rhs.aceitar(this)
+
+    if(lhs == TBooleano && rhs == TBooleano)
+      TBooleano
+
+    else
+      TErro
 
   }
 

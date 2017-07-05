@@ -1,15 +1,22 @@
 package Tipos
 
-import Visitors.MHSVisitor
+import Visitors.{MHSVisitor, VisitorTipo}
 
 class ExpressaoAnd(lhs : Expressao, rhs : Expressao) extends ExpressaoBinaria(lhs, rhs) {
 
   override def avaliar() : Valor = {
 
-    val v1 = lhs.avaliar().asInstanceOf[ValorBooleano]
-    val v2 = rhs.avaliar().asInstanceOf[ValorBooleano]
+    val visitor = new VisitorTipo
 
-    ValorBooleano(v1.valor && v2.valor)
+    if(visitor.visitar(this) == TErro)
+      ValorErro(null)
+
+    else {
+      val v1 = lhs.avaliar().asInstanceOf[ValorBooleano]
+      val v2 = rhs.avaliar().asInstanceOf[ValorBooleano]
+
+      ValorBooleano(v1.valor && v2.valor)
+    }
 
   }
 
