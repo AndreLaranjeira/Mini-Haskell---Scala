@@ -13,7 +13,7 @@ case class ValorBooleano(v : Boolean) extends ValorConcreto[Boolean](v) {
 
 case class ValorErro(v : Null) extends ValorConcreto[Null](v) {
   override def aceitar[T](visitor: MHSVisitor[T]): T = visitor.visitar(this)
-  override def avaliar() : Valor = this
+  override def avaliar() : Valor = null
 }
 
 case class ValorInteiro(v : Int) extends ValorConcreto[Int](v) {
