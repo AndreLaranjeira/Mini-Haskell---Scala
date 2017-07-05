@@ -23,7 +23,7 @@ class Aplicacao (val nome: String, val args: Expressao*) extends Expressao{
 
   }
 
-  override def verificarTipo() : Tipo = {
+  /*override def verificarTipo() : Tipo = {
 
     val funcao = AmbienteDecFuncao.pesquisar(nome)
     var tiposArgumentos: List[Tipo] = List()
@@ -54,6 +54,7 @@ class Aplicacao (val nome: String, val args: Expressao*) extends Expressao{
     }
 
   }
+  */
 
   override def aceitar[T](visitor : MHSVisitor[T]) : T =  visitor.visitar(this)
 

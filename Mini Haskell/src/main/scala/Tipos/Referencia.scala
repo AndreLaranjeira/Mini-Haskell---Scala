@@ -7,7 +7,7 @@ class Referencia(val id: String) extends Expressao {
 
   override def avaliar() : Valor = AmbienteExpressao.pesquisar(id).avaliar()
 
-  override def verificarTipo() : Tipo = {
+  /*override def verificarTipo() : Tipo = {
 
     val exp = AmbienteExpressao.pesquisar(id)
 
@@ -17,6 +17,7 @@ class Referencia(val id: String) extends Expressao {
       TErro
 
   }
+  */
 
   override def aceitar[T](visitor : MHSVisitor[T]) : T =  visitor.visitar(this)
 

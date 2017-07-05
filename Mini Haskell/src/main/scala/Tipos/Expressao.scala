@@ -11,6 +11,6 @@ case object TErro extends Tipo
 
 trait Expressao {
   def avaliar() : Valor
-  def verificarTipo() : Tipo
+  //def verificarTipo() : Tipo
   def aceitar[T](visitor : MHSVisitor[T]) : T
 }
