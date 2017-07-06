@@ -48,6 +48,26 @@ class VisitorTipo extends MHSVisitor[Tipo]{
 
   }
 
+  override def visitar(e: ExpressaoFuncao): Tipo = {
+    AmbienteExpressao.novoEscopo()
+    for(i <- e.argFuncao.indices){
+      AmbienteExpressao.associar(e.expFuncao.arg(i)._1, e.argFuncao(i))
+    }
+
+    val tipoRetorno = e.expFuncao.corpo._1.aceitar(this)
+    AmbienteExpressao.mudancaDeEscopo()
+
+    if(tipoRetorno == TErro || e.argFuncao.size != e.expFuncao.arg.size)
+      TErro
+    else {
+      for(i <- e.expFuncao.arg.indices) {
+        if(e.expFuncao.arg(i)._2 != e.argFuncao(i).aceitar(this) || e.expFuncao.arg(i)._2 == TErro)
+          TErro
+      }
+      tipoRetorno
+    }
+  }
+
   override def visitar(e: ExpressaoITE): Tipo = {
 
     val tipoCondicao = e.condicao.aceitar(this)
@@ -140,4 +160,5 @@ class VisitorTipo extends MHSVisitor[Tipo]{
 
   override def visitar(e: ValorInteiro): Tipo = TInteiro
 
+  override def visitar(e: ValorFuncao): Tipo = TFuncao(List(e.arg.head._2), e.corpo._2)
 }
