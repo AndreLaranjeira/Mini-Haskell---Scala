@@ -16,4 +16,5 @@ class Metricas extends MHSVisitor[Int] {
   def visitar(e: ValorErro): Int  = 0
   def visitar(e : ValorFuncao): Int = 1 + e.corpo._1.aceitar(this)
   def visitar(e : ValorInteiro): Int = 1
+  def visitar(e : ValorNome): Int = 1
 }

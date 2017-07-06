@@ -24,3 +24,7 @@ case class ValorInteiro(v : Int) extends ValorConcreto[Int](v) {
   //override def verificarTipo() : Tipo = TInteiro
   override def aceitar[T](visitor : MHSVisitor[T]) : T = visitor.visitar(this)
 }
+
+case class ValorNome(v : String) extends ValorConcreto[String](v) {
+  override def aceitar[T](visitor : MHSVisitor[T]) : T = visitor.visitar(this)
+}

@@ -22,4 +22,5 @@ trait MHSVisitor[+T] {
   def visitar(e:  ValorErro)     : T
   def visitar(e : ValorFuncao) : T
   def visitar(e : ValorInteiro)  : T
+  def visitar(e : ValorNome)  : T
 }
