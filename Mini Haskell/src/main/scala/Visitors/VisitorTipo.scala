@@ -158,7 +158,10 @@ class VisitorTipo extends MHSVisitor[Tipo]{
 
   override def visitar(e: ValorErro): Tipo = TErro
 
+  override def visitar(e: ValorFuncao): Tipo = TFuncao(List(e.arg.head._2), e.corpo._2)
+
   override def visitar(e: ValorInteiro): Tipo = TInteiro
 
-  override def visitar(e: ValorFuncao): Tipo = TFuncao(List(e.arg.head._2), e.corpo._2)
+  override def visitar(e: ValorNome): Tipo = TNome
+
 }
