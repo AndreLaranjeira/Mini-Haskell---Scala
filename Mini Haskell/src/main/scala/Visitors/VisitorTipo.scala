@@ -4,6 +4,7 @@ import Memoria.{Ambiente, AmbienteDecFuncao, AmbienteExpressao}
 import Tipos._
 
 class VisitorTipo extends MHSVisitor[Tipo]{
+  override def visitar(e: ValorErro): Tipo = TErro
   override def visitar(e: ValorInteiro): Tipo = TInteiro
 
   override def visitar(e: ValorBooleano): Tipo = TBooleano
@@ -45,7 +46,19 @@ class VisitorTipo extends MHSVisitor[Tipo]{
     }
   }
 
-  override def visitar(e: ExpressaoLet): Tipo = TErro
+  override def visitar(e: ExpressaoLet): Tipo = {
+    AmbienteExpressao.associar(e.id, e)
+    if(e.expNomeada.aceitar(this) != TErro && e.corpo.aceitar(this) != TErro)
+      TFuncao(List(e.expNomeada.aceitar(this)), e.corpo.aceitar(this))
+    else
+      TErro
+  }
 
-  override def visitar(e: Referencia): Tipo = TErro
+  override def visitar(e: Referencia): Tipo = {
+    val exp = AmbienteExpressao.pesquisar(e.id)
+    if(exp != null)
+      exp.aceitar(this)
+    else
+      TErro
+  }
 }

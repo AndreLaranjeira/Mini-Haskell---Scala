@@ -10,6 +10,7 @@ import Tipos._
   */
 
 trait TransformacaoG extends MHSVisitor[Expressao] {
+  override def visitar(e : ValorErro) : Expressao = e
   override def visitar(vb : ValorBooleano) : Expressao =  vb
   override def visitar(vi : ValorInteiro) : Expressao =  vi
   override def visitar(e : ExpressaoSoma) : Expressao = new ExpressaoSoma(e.lhs.aceitar(this),e.rhs.aceitar(this))

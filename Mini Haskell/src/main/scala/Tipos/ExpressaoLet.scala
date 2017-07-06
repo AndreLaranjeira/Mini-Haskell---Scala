@@ -1,7 +1,7 @@
 package Tipos
 
 import Memoria.AmbienteExpressao
-import Visitors.MHSVisitor
+import Visitors.{MHSVisitor, VisitorTipo}
 
 /**
   * Classe que representa uma expressao do tipo Let.
@@ -12,16 +12,16 @@ import Visitors.MHSVisitor
 class ExpressaoLet(val id : String , val expNomeada: Expressao , val corpo: Expressao) extends Expressao {
 
   override def avaliar() : Valor = {
-
+    val visitor = new VisitorTipo
     AmbienteExpressao.novoEscopo()
     AmbienteExpressao.associar(id, expNomeada)
-
-    val resultado = corpo.avaliar()
-
-    AmbienteExpressao.mudancaDeEscopo()
-
-    resultado
-
+    if(visitor.visitar(this) != TErro) {
+      val resultado = corpo.avaliar()
+      AmbienteExpressao.mudancaDeEscopo()
+      resultado
+    }
+    else
+      ValorErro
   }
 
   //override def verificarTipo() : Tipo = if(expNomeada.verificarTipo().equals(TErro)) TErro else  corpo.verificarTipo()

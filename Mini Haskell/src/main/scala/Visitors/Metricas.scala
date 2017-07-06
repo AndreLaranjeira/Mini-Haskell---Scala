@@ -3,6 +3,7 @@ package Visitors
 import Tipos._
 
 class Metricas extends MHSVisitor[Int] {
+  def visitar(e: ValorErro): Int  = 0
   def visitar(e : ValorInteiro): Int = 1
   def visitar(e : ValorBooleano): Int = 1
   def visitar(e : ExpressaoSoma): Int = 1 + e.lhs.aceitar(this) + e.rhs.aceitar(this)

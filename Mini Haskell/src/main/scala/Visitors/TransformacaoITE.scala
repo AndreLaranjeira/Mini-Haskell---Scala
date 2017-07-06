@@ -3,7 +3,6 @@ package Visitors
 import Tipos._
 
 class TransformacaoITE extends TransformacaoG {
-
   override def visitar(e : ExpressaoITE): Expressao = {
 
     val condicao = e.condicao.aceitar(this)
@@ -15,5 +14,4 @@ class TransformacaoITE extends TransformacaoG {
     }
 
   }
-
 }
