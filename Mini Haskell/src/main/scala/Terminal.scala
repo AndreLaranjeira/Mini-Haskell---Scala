@@ -9,7 +9,7 @@ object Terminal extends App {
 
   while(Input != "quit") {
 
-    print("[bonifacio@mhs]>")
+    print("[rbonifacio@mhs]>")
     Input = scala.io.StdIn.readLine()
 
     if(Input != "quit") {

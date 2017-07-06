@@ -23,7 +23,8 @@ class MHSParser extends JavaTokenParsers {
   | number~"and"~expressao ^^ (x => ValorErro(null)))
 
   def not : Parser[Expressao] = "not"~expressao ^^
-  {case "not"~value => new ExpressaoNot(value.asInstanceOf[Expressao])}
+  {case "not"~value => new ExpressaoNot(value.asInstanceOf[Expressao])
+  case _ => ValorErro(null)}
 
   def or : Parser[Expressao] = (boolean~"or"~expressao ^^
     {case value1~"or"~value2 => new ExpressaoOr(value1.asInstanceOf[Expressao], value2.asInstanceOf[Expressao])}
