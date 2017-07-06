@@ -14,4 +14,5 @@ class Metricas extends MHSVisitor[Int] {
   def visitar(e : ValorBooleano): Int = 1
   def visitar(e: ValorErro): Int  = 0
   def visitar(e : ValorInteiro): Int = 1
+  def visitar(e : ValorNome): Int = 1
 }

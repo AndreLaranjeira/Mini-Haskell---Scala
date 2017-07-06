@@ -140,4 +140,6 @@ class VisitorTipo extends MHSVisitor[Tipo]{
 
   override def visitar(e: ValorInteiro): Tipo = TInteiro
 
+  override def visitar(e: ValorNome): Tipo = TNome
+
 }

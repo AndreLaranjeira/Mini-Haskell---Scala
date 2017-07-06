@@ -19,7 +19,15 @@ object Terminal extends App {
         case parser.NoSuccess(_, _) => parserResult = ValorErro(null)
       }
 
-      println(parserResult.avaliar())
+      parserResult.avaliar() match {
+
+        case ValorBooleano(x) => println("Resultado: " + x)
+        case ValorInteiro(x) => println("Resultado: " + x)
+        case ValorNome(t) => println("Resultado: " + t)
+        case _ => println("Erro de tipagem. Por favor, cheque sua sintaxe.")
+
+      }
+
       println()
 
     }
