@@ -72,7 +72,7 @@ class VisitorTipo extends MHSVisitor[Tipo]{
 
     val tipoCondicao = e.condicao.aceitar(this)
     val tipoThen = e.clausulaThen.aceitar(this)
-    val tipoElse = e.clausulaThen.aceitar(this)
+    val tipoElse = e.clausulaElse.aceitar(this)
 
     if(tipoCondicao != TBooleano || tipoThen != tipoElse)
       TErro

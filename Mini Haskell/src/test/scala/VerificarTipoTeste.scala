@@ -1,4 +1,4 @@
-import Memoria.AmbienteExpressao
+import Memoria._
 import Tipos._
 import Visitors.VisitorTipo
 import org.scalatest.{FlatSpec, Matchers}
@@ -74,6 +74,30 @@ class VerificarTipoTeste extends FlatSpec with Matchers{
     AmbienteExpressao.associar("x", ValorInteiro(6))
 
     refX.aceitar(new VisitorTipo) should be (TInteiro)
+
+  }
+
+  "verificar tipo de let x = 10 in x + 2 " should " levar ao tipo TInteiro" in {
+
+    val let = new ExpressaoLet("x", ValorInteiro(10), new ExpressaoSoma(new Referencia("x"), ValorInteiro(2)))
+
+    let.aceitar(new VisitorTipo) should be (TInteiro)
+
+  }
+
+  "verificar tipo de if (false) 5 else 10 " should " levar ao tipo TInteiro" in {
+
+    val ite = new ExpressaoITE(ValorBooleano(false), ValorInteiro(5), ValorInteiro(10))
+
+    ite.aceitar(new VisitorTipo) should be (TInteiro)
+
+  }
+
+  "verificar tipo de if (false) true else 5 " should " levar ao tipo TErro" in {
+
+    val ite = new ExpressaoITE(ValorBooleano(false), ValorBooleano(true), ValorInteiro(5))
+
+    ite.aceitar(new VisitorTipo) should be (TErro)
 
   }
 
