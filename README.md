@@ -1,8 +1,6 @@
 # Mini-Haskell_Scala
 Uma pequena implementação da linguagem de programação Haskell em Scala.
-
-
-*Observação: melhor visto no [GitHub](https://github.com/victoragcosta/Mini-Haskell_Scala) ou usando um editor de texto com preview de MarkDown como [Atom](https://atom.io/).*
+Trabalho da disciplina Técnicas de Programação I 2017/1 UnB.
 
 ## Desenvolvedores:
 Aluno | Username | Matrícula
